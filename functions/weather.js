@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "./config.js";
+import { config } from "../config.js";
 
 export const getWeather = async (ctx) => {
   // console.log(ctx.message.location);

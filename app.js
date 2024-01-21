@@ -1,11 +1,19 @@
+import express from "express";
+
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
-import "dotenv/config";
 
-import { showMenu, closeMenu } from "./menu.js";
-import { getWeather } from "./weather.js";
-import { getCat } from "./cat.js";
+import { showMenu, closeMenu } from "./functions/menu.js";
+import { getWeather } from "./functions/weather.js";
+import { getCat } from "./functions/cat.js";
 
+export const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Hello world!!!");
+});
+
+// =============== bot ===============
 const bot = new Telegraf(process.env.BOT_TOKEN, {});
 
 bot.start((ctx) => ctx.reply('Welcome to the bot! To start, write: "menu"'));
