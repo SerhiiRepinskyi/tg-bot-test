@@ -10,10 +10,16 @@ import { getCat } from "./functions/cat.js";
 export const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Hello world!!!");
+  res.send(
+    "Hello World!<br><br>The Bot <a href='https://t.me/TestBotTheCatBot'>@TestBotTheCatBot</a> is alive!!!"
+  );
 });
 
-// =============== bot ===============
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
+
+// =============== Bot ===============
 const bot = new Telegraf(process.env.BOT_TOKEN, {});
 
 bot.start((ctx) => ctx.reply('Welcome to the bot! To start, write: "menu"'));
