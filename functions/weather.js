@@ -16,12 +16,32 @@ export const getWeather = async (ctx) => {
 
   let country = response.data.sys.country;
   let name = response.data.name;
-  let temperature = response.data.main.temp;
+  let temp = response.data.main.temp;
+  let tempFeelsLike = response.data.main.feels_like;
   let humidity = response.data.main.humidity;
+
+  let sunriseDate = new Date(response.data.sys.sunrise * 1000);
+  let sunsetDate = new Date(response.data.sys.sunset * 1000);
+  let sunriseHours = sunriseDate.getHours();
+  let sunriseMinutes = sunriseDate.getMinutes();
+  let sunsetHours = sunsetDate.getHours();
+  let sunsetMinutes = sunsetDate.getMinutes();
+
   let weather = response.data.weather[0].main;
   let icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
 
-  let text = `${country}, ${name}. Temperature: ${temperature}°C. Humidity: ${humidity}%. ${weather}, ${icon}`;
+  let text = `
+${country}, ${name}.
+Temperature: ${temp}°C.
+Feeling temperature: ${tempFeelsLike}°C.
+Humidity: ${humidity}%.
+Sunrise: ${sunriseHours}:${sunriseMinutes}. Sunset: ${sunsetHours}:${sunsetMinutes}.
+${weather}, ${icon}
+  `;
+
+  console.log(
+    `${country}; ${name}; latitude=${locationLatitude}; longitude=${locationLongitude}.`
+  );
 
   return text;
 };
